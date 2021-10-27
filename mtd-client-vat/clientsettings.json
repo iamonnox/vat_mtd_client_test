@@ -1,0 +1,6 @@
+{
+  "uri": "https://test-api.service.hmrc.gov.uk",
+  "clientId": "Xv02bnb4fw8YLAxJ4KQQWCGZUbWI",
+  "clientSecret": "2387bf0d-de4f-476b-88bc-3d3bda24faa2",
+  "oauthCallbackUri": "/VatMTD"
+}
