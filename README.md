@@ -16,11 +16,6 @@ Test web app for the [Trade Control](https://www.tradecontrol.online) open sourc
 3. Edit [clientsettings.json](./mtd-client-vat/clientsettings.json)
 4. Re-publish 
 
-
-## Test Page
-
-![screen shot](screenshot.png)
-
 ### License
 
 This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").
