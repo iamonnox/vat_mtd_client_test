@@ -4,6 +4,56 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        const hmrcEndPoint = {
+            VAT_CHALLANGE_CALL: "VatMTD/ChallangeCall",
+            VAT_OBLIGATIONS_CALL: "VatMTD/VatObligationsCall",
+            VAT_VIEW_RETURN_CALL: "VatMTD/VatViewReturnCall",
+            VAT_RETURN_CALL: "VatMTD/VatReturnCall",
+            VAT_LIABILITIES_CALL: "VatMTD/VatLiabilitiesCall",
+            TEST_FRAUD_REQUEST_HEADERS: "VatMTD/TestFraudRequestHeaders",
+            SHOW_FRAUD_REQUEST_HEADERS: "VatMTD/ShowFraudRequestHeaders"
+        };
+
+        function processAction(action) {
+
+            let vatNumberArg = '', periodCodeArg = '';
+
+            if (arguments.length > 1)
+                vatNumberArg = "vn=" + arguments[1] + '&';
+
+            if (arguments.length > 2)
+                periodCodeArg = "pk=" + arguments[2] + '&';
+
+            location.href = action + "?" + vatNumberArg + periodCodeArg + screenDetail();
+        }
+
+        const screenDetail = () => "sw=" + screenWidth()
+            + "&sh=" + screenHeight()
+            + "&scd=" + screenColourDepth()
+            + "&ssf=" + screenScalingFactor()
+            + "&ww=" + windowWidth()
+            + "&wh=" + windowHeight();
+
+        const screenWidth = () => getScreenDetail(screen.width);
+        const screenHeight = () => getScreenDetail(screen.height);
+        const screenColourDepth = () => getScreenDetail(screen.colorDepth)
+        const screenScalingFactor = () => getScreenDetail(window.devicePixelRatio);
+        const windowWidth = () => getScreenDetail(window.innerWidth);
+        const windowHeight = () => getScreenDetail(window.innerHeight);
+
+        const getScreenDetail = (value) => {
+            if (!isNumber(value))
+                return 0;
+            else
+                return value;
+        };
+
+        var isNumber = function isNumber(value) {
+            return typeof value === 'number' && isFinite(value);
+        }
+
+    </script>
 </head>
 
 <body>
@@ -17,7 +67,27 @@
         </nav>
 
         <h1>Testing @ViewData["service"] API</h1>
+        <p>
+            <a href="https://developer.service.hmrc.gov.uk/api-test-user" target="_top">Create a test user</a>
+        </p>
+        <div>
+            <table class="table table-info table-bordered">
+                <tr>
+                    <td>VAT NUMBER:</td>
+                    <td>
+                        <input id="VatNumber" value="148096350"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PERIOD CODE:</td>
+                    <td>
+                        <input id="PeriodCode" value="18A1" />
+                    </td>
 
+                </tr>
+            </table>
+        </div>
+        <p/>
         <div>
             <table class="table table-striped table-hover">
                 <thead>
@@ -31,40 +101,52 @@
                         <td>@ViewData["service"]</td>
                         <td>Authorise service</td>
                         <td>
-                            <a class="btn btn-primary" href="VatMTD/ChallangeCall">Try it</a>
+                            <button class="btn btn-primary" onclick="processAction(hmrcEndPoint.VAT_CHALLANGE_CALL);">Try It</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@ViewData["validateHeadersEndpoint"]</td>
+                        <td>Test Fraud Prevention Headers</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="processAction(hmrcEndPoint.TEST_FRAUD_REQUEST_HEADERS);">Try It</button>
                         </td>
                     </tr>
                     <tr>
                         <td>@ViewData["vatObligationsEndpoint"]</td>
                         <td>Retrieve Vat Obligations</td>
                         <td>
-                            <a class="btn btn-primary" href="VatMTD/vatObligationsCall">Try it</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>@ViewData["vatViewReturnEndpoint"]</td>
-                        <td>View Vat Return</td>
-                        <td>
-                            <a class="btn btn-primary" href="VatMTD/VatViewReturnCall">Try it</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>@ViewData["vatLiabilitiesEndpoint"]</td>
-                        <td>Retrieve Vat Liabilities</td>
-                        <td>
-                            <a class="btn btn-primary" href="VatMTD/VatLiabilitiesCall">Try it</a>
+                            <button class="btn btn-primary" onclick="processAction(hmrcEndPoint.VAT_OBLIGATIONS_CALL, document.getElementById('VatNumber').value);">Try It</button>
                         </td>
                     </tr>
                     <tr>
                         <td>@ViewData["vatReturnsEndpoint"]</td>
                         <td>Send Vat Return</td>
                         <td>
-                            <a class="btn btn-primary" href="VatMTD/VatReturnCall">Try it</a>
+                            <button class="btn btn-primary" onclick="processAction(hmrcEndPoint.VAT_RETURN_CALL, document.getElementById('VatNumber').value, document.getElementById('PeriodCode').value);">Try It</button>
                         </td>
                     </tr>
+                    <tr>
+                        <td>@ViewData["vatViewReturnEndpoint"]</td>
+                        <td>View Vat Return</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="processAction(hmrcEndPoint.VAT_VIEW_RETURN_CALL, document.getElementById('VatNumber').value, document.getElementById('PeriodCode').value);">Try It</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@ViewData["vatLiabilitiesEndpoint"]</td>
+                        <td>Retrieve Vat Liabilities</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="processAction(hmrcEndPoint.VAT_LIABILITIES_CALL, document.getElementById('VatNumber').value);">Try It</button>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
+            <p>
+                <button class="btn btn-primary" onclick="processAction(hmrcEndPoint.SHOW_FRAUD_REQUEST_HEADERS);">Show Fraud Request Headers</button>                
+            </p>
         </div>
     </div>
 </body>
+
 </html>

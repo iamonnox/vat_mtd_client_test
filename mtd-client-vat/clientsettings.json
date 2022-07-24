@@ -1,6 +1,10 @@
 {
   "uri": "https://test-api.service.hmrc.gov.uk",
-  "clientId": "Xv02bnb4fw8YLAxJ4KQQWCGZUbWI",
-  "clientSecret": "2387bf0d-de4f-476b-88bc-3d3bda24faa2",
-  "oauthCallbackUri": "/VatMTD"
+  "clientId": "12345nb4fw8YLAxJ4KQQWCG12345",
+  "clientSecret": "12345f0d-de4f-476b-88bc-3d3bda223452",
+  "oauthCallbackUri": "/VatMTD",
+  "appName": "Trade Control",
+  "webAppVersion": "1.0.0",
+  "sqlSchemaVersion": "1.0.0",
+  "serverIPAddress": "51.104.28.70"
 }

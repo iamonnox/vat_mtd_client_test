@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FF73764C-0830-4CEF-990A-A2FBE7AD44C5}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		screenshot.PNG = screenshot.PNG
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtd-client-vat", "mtd-client-vat\mtd-client-vat.csproj", "{10C951C8-9995-48F3-AF7A-22D8A2DCADE3}"
